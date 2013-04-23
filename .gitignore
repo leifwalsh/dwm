@@ -1,0 +1,4 @@
+*.pkg.tar.xz
+dwm-6.0.tar.gz
+pkg/
+src/
