@@ -1,12 +1,9 @@
 #!/bin/bash
 
+if [ -f $HOME/.xinitrc ]; then
+    . $HOME/.xinitrc
+fi
 if which dwmstatus &>/dev/null && [ -x "$(which dwmstatus)" ]; then
     while pgrep X &>/dev/null ; do sleep 5; dwmstatus; done &
-fi
-if which unclutter &>/dev/null && [ -x "$(which unclutter)" ]; then
-    unclutter &
-fi
-if [ -f $HOME/.fehbg ]; then
-    eval $(cat $HOME/.fehbg)
 fi
 exec dwm
