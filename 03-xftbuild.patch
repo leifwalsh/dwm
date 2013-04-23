@@ -1,0 +1,18 @@
+--- dwm-6.0/config.mk	2013-01-28 11:39:19.587277442 -0500
++++ dwm-6.0-xftbuild/config.mk	2013-01-28 11:43:30.296569382 -0500
+@@ -14,9 +14,13 @@
+ XINERAMALIBS = -L${X11LIB} -lXinerama
+ XINERAMAFLAGS = -DXINERAMA
+ 
++# Freetype
++FREETYPELIBS = -lXft -lfontconfig
++FREETYPEINC = /usr/include/freetype2
++
+ # includes and libs
+-INCS = -I. -I/usr/include -I${X11INC}
+-LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS}
++INCS = -I. -I/usr/include -I${X11INC} -I${FREETYPEINC}
++LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
+ 
+ # flags
+ CPPFLAGS += -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}

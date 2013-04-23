@@ -14,14 +14,25 @@ options=(zipman)
 depends=('libx11' 'libxinerama')
 install=dwm.install
 source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
-	config.h
-	dwm.desktop)
+        config.h
+        01-statuscolors.patch
+        02-pertag.patch
+        dwm.desktop
+        dwmstart)
 md5sums=('8bb00d4142259beb11e13473b81c0857'
-         '2453e037f46449774ec8afab49b4f1a2'
-         '939f403a71b6e85261d09fc3412269ee')
+         'a3876c43fa229f126260b47076d4d448'
+         '76706fdeda50e0a9f8367079efee7149'
+         'd2ff4c32286bb5fec5c9bee8c7aac91b'
+         '1fd6ee7c7d66741480aa5256849ddd6b'
+         'fb4d1c996b123055ed0f2b4c53ff5554')
 
 build() {
   cd $srcdir/$pkgname-$pkgver
+  for patch in $srcdir/*.patch; do
+    echo "=> $patch"
+    patch -p1 < $patch
+  done
+  cp $srcdir/dwmstart dwmstart
   cp $srcdir/config.h config.h
   sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
   sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
@@ -36,5 +47,6 @@ package() {
   make PREFIX=/usr DESTDIR=$pkgdir install
   install -m644 -D LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
   install -m644 -D README $pkgdir/usr/share/doc/$pkgname/README
+  install -m755 -D dwmstart $pkgdir/usr/bin/dwmstart
   install -m644 -D $srcdir/dwm.desktop $pkgdir/usr/share/xsessions/dwm.desktop
 }

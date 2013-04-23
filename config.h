@@ -2,24 +2,40 @@
 
 /* appearance */
 static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#444444";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#005577";
-static const char selbgcolor[]      = "#005577";
-static const char selfgcolor[]      = "#eeeeee";
+#define NUMCOLORS         8
+static const char colors[NUMCOLORS][ColLast][8] = {
+  // border   foreground background
+  { "#586e75", "#93a1a1", "#073642" },  // normal
+  { "#657b83", "#eee8d5", "#002b36" },  // selected
+  { "#586e75", "#dc322f", "#073642" },  // red
+  { "#586e75", "#cb4b16", "#073642" },  // orange
+  { "#586e75", "#b58900", "#073642" },  // yellow
+  { "#586e75", "#268bd2", "#073642" },  // blue
+  { "#586e75", "#2aa198", "#073642" },  // cyan
+  { "#586e75", "#859900", "#073642" },  // green
+};
+/*
+static const char normbordercolor[] = "#586e75";
+static const char normbgcolor[]     = "#073642";
+static const char normfgcolor[]     = "#93a1a1";
+static const char selbordercolor[]  = "#657b83";
+static const char selbgcolor[]      = "#002b36";
+static const char selfgcolor[]      = "#eee8d5";
+*/
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 0,       False,       -1 },
+	{ "Chromium", NULL,       NULL,       1 << 0,       False,       -1 },
+	{ "Emacs",    NULL,       NULL,       1 << 1,       False,       -1 },
 };
 
 /* layout(s) */
@@ -35,7 +51,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -46,8 +62,13 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "uxterm", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][2], "-nf", colors[0][1], "-sb", colors[1][2], "-sf", colors[1][1], NULL };
+static const char *termcmd[]  = { "urxvt", NULL };
+static const char *vol_up[]      = { "vol_up", NULL};
+static const char *vol_down[]    = { "vol_down", NULL};
+static const char *mute_toggle[] = { "mute_toggle", NULL};
+
+#include <X11/XF86keysym.h>
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -84,6 +105,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+        { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = vol_up } },
+        { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = vol_down } },
+        { 0,                            XF86XK_AudioMute,        spawn, {.v = mute_toggle } },
 };
 
 /* button definitions */
