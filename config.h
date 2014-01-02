@@ -64,9 +64,9 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][2], "-nf", colors[0][1], "-sb", colors[1][2], "-sf", colors[1][1], NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
-static const char *vol_up[]      = { "vol_up", NULL};
-static const char *vol_down[]    = { "vol_down", NULL};
-static const char *mute_toggle[] = { "mute_toggle", NULL};
+static const char *vol_up[]      = { "pulseaudio-ctl", "up", NULL};
+static const char *vol_down[]    = { "pulseaudio-ctl", "down", NULL};
+static const char *mute_toggle[] = { "pulseaudio-ctl", "mute", NULL};
 
 #include <X11/XF86keysym.h>
 
