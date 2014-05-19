@@ -20,7 +20,7 @@ source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
         dwm.desktop
         dwmstart)
 md5sums=('8bb00d4142259beb11e13473b81c0857'
-         'b0a858ffa6cd7d131b0d9cf62b1de616'
+         '5e193a97a92e1341e1c33c18894c28a5'
          '76706fdeda50e0a9f8367079efee7149'
          'd2ff4c32286bb5fec5c9bee8c7aac91b'
          '1fd6ee7c7d66741480aa5256849ddd6b'
