@@ -1,0 +1,11 @@
+--- dwm-6.0/config.def.h.orig	2015-04-16 09:34:45.943913558 -0400
++++ dwm-6.0/config.def.h	2015-04-16 09:26:05.647771882 -0400
+@@ -13,7 +13,7 @@
+   { "#586e75", "#2aa198", "#073642" },  // cyan
+   { "#586e75", "#859900", "#073642" },  // green
+ };
+-static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
++static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const unsigned int systrayspacing = 2;   /* systray spacing */

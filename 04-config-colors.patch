@@ -1,0 +1,28 @@
+--- dwm-6.0/config.def.h.orig	2015-04-16 09:22:08.383170721 -0400
++++ dwm-6.0/config.def.h	2015-04-16 09:26:05.647771882 -0400
+@@ -1,15 +1,18 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+-#define NUMCOLORS         4             // need at least 3
++#define NUMCOLORS         8
+ static const char colors[NUMCOLORS][ColLast][8] = {
+-   // border   foreground  background
+-   { "#cccccc", "#000000", "#cccccc" },  // 0 = normal
+-   { "#0066ff", "#ffffff", "#0066ff" },  // 1 = selected
+-   { "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
+-   { "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
+-   // add more here
++  // border   foreground background
++  { "#586e75", "#93a1a1", "#073642" },  // normal
++  { "#657b83", "#eee8d5", "#002b36" },  // selected
++  { "#586e75", "#dc322f", "#073642" },  // red
++  { "#586e75", "#cb4b16", "#073642" },  // orange
++  { "#586e75", "#b58900", "#073642" },  // yellow
++  { "#586e75", "#268bd2", "#073642" },  // blue
++  { "#586e75", "#2aa198", "#073642" },  // cyan
++  { "#586e75", "#859900", "#073642" },  // green
+ };
+ static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */

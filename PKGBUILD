@@ -5,7 +5,7 @@
 
 pkgname=dwm
 pkgver=6.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A dynamic window manager for X"
 url="http://dwm.suckless.org"
 arch=('i686' 'x86_64')
@@ -14,17 +14,23 @@ options=(zipman)
 depends=('libx11' 'libxinerama')
 install=dwm.install
 source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
-        config.h
-        00-systray.patch
         01-statuscolors.patch
         02-pertag.patch
+        03-systray.patch
+        04-config-colors.patch
+        05-config-font.patch
+        06-config-keys.patch
+        07-config-tags.patch
         dwm.desktop
         dwmstart)
 md5sums=('8bb00d4142259beb11e13473b81c0857'
-         'd45d09ca4fbd36f8175feececa798655'
-         '967174d90cc7d99508f4285fedf301a8'
          '76706fdeda50e0a9f8367079efee7149'
          'd2ff4c32286bb5fec5c9bee8c7aac91b'
+         '967174d90cc7d99508f4285fedf301a8'
+         'bc65904864bcda50ce397b1962f9d66d'
+         'de0787b5f1f8e95994241fd729a4de44'
+         '03e689d72105bbe13ebe4575e6c0d7f0'
+         '2380a9a7473b4c026135bd035ce5c2f3'
          '1fd6ee7c7d66741480aa5256849ddd6b'
          'c8e286dc3b77c76f5b088bcb66dfcd14')
 
@@ -35,7 +41,6 @@ build() {
     patch -p1 < $patch
   done
   cp $srcdir/dwmstart dwmstart
-  cp $srcdir/config.h config.h
   sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
   sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
   sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk

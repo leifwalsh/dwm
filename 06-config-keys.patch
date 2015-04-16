@@ -1,0 +1,35 @@
+--- dwm-6.0/config.def.h.orig	2015-04-16 09:36:08.604336958 -0400
++++ dwm-6.0/config.def.h	2015-04-16 09:26:05.647771882 -0400
+@@ -43,7 +43,7 @@
+ };
+ 
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -55,7 +55,12 @@
+ 
+ /* commands */
+ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
+-static const char *termcmd[]  = { "uxterm", NULL };
++static const char *termcmd[]  = { "urxvt", NULL };
++static const char *vol_up[]      = { "pulseaudio-ctl", "up", NULL};
++static const char *vol_down[]    = { "pulseaudio-ctl", "down", NULL};
++static const char *mute_toggle[] = { "pulseaudio-ctl", "mute", NULL};
++
++#include <X11/XF86keysym.h>
+ 
+ static Key keys[] = {
+ 	/* modifier                     key        function        argument */
+@@ -92,6 +99,9 @@
+ 	TAGKEYS(                        XK_8,                      7)
+ 	TAGKEYS(                        XK_9,                      8)
+ 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++   { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = vol_up } },
++   { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = vol_down } },
++   { 0,                            XF86XK_AudioMute,        spawn, {.v = mute_toggle } },
+ };
+ 
+ /* button definitions */
