@@ -5,7 +5,7 @@
 
 pkgname=dwm
 pkgver=6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A dynamic window manager for X"
 url="http://dwm.suckless.org"
 arch=('i686' 'x86_64')
@@ -15,12 +15,14 @@ depends=('libx11' 'libxinerama')
 install=dwm.install
 source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
         config.h
+        00-systray.patch
         01-statuscolors.patch
         02-pertag.patch
         dwm.desktop
         dwmstart)
 md5sums=('8bb00d4142259beb11e13473b81c0857'
-         '5e193a97a92e1341e1c33c18894c28a5'
+         'd45d09ca4fbd36f8175feececa798655'
+         '967174d90cc7d99508f4285fedf301a8'
          '76706fdeda50e0a9f8367079efee7149'
          'd2ff4c32286bb5fec5c9bee8c7aac91b'
          '1fd6ee7c7d66741480aa5256849ddd6b'
