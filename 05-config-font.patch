@@ -5,7 +5,7 @@
    { "#586e75", "#859900", "#073642" },  // green
  };
 -static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-+static const char font[]            = "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*";
++static const char font[]            = "-*-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso8859-1";
  static const unsigned int borderpx  = 1;        /* border pixel of windows */
  static const unsigned int snap      = 32;       /* snap pixel */
  static const unsigned int systrayspacing = 2;   /* systray spacing */

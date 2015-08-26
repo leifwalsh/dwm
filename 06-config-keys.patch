@@ -9,7 +9,7 @@
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-@@ -55,7 +55,12 @@
+@@ -55,7 +55,10 @@
  
  /* commands */
  static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
@@ -18,18 +18,6 @@
 +static const char *vol_up[]      = { "pulseaudio-ctl", "up", NULL};
 +static const char *vol_down[]    = { "pulseaudio-ctl", "down", NULL};
 +static const char *mute_toggle[] = { "pulseaudio-ctl", "mute", NULL};
-+
-+#include <X11/XF86keysym.h>
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
-@@ -92,6 +99,9 @@
- 	TAGKEYS(                        XK_8,                      7)
- 	TAGKEYS(                        XK_9,                      8)
- 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-+   { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = vol_up } },
-+   { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = vol_down } },
-+   { 0,                            XF86XK_AudioMute,        spawn, {.v = mute_toggle } },
- };
- 
- /* button definitions */
