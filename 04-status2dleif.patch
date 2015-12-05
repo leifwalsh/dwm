@@ -1,0 +1,144 @@
+diff -rpu dwm-6.1.old/drw.c dwm-6.1/drw.c
+--- dwm-6.1.old/drw.c	2015-12-05 18:15:16.408606053 -0500
++++ dwm-6.1/drw.c	2015-12-05 18:15:40.927731983 -0500
+@@ -206,11 +206,11 @@ drw_setscheme(Drw *drw, ClrScheme *schem
+ 	drw->scheme = scheme;
+ }
+ 
+-void
++int
+ drw_colored_text(Drw *drw, ClrScheme *scheme, int numcolors, int x, int y, unsigned int w, unsigned int h, char *text)
+ {
+ 	if (!drw || !drw->fontcount || !drw->scheme)
+-		return;
++		return x;
+ 
+ 	char *buf = text, *ptr = buf, c = 1;
+ 	int i;
+@@ -227,7 +227,89 @@ drw_colored_text(Drw *drw, ClrScheme *sc
+ 		drw_setscheme(drw, &scheme[c-1]);
+ 		buf = ++ptr;
+ 	}
+-	drw_text(drw, x, y, w, h, buf);
++	return drw_text(drw, x, y, w, h, buf);
++}
++
++int
++drw_colored_text_width(Drw *drw, int numcolors, char *text) {
++	char *buf = text, *ptr = buf, c = 1;
++	int i, x = 0;
++
++	while (*ptr) {
++		for (i = 0; *ptr < 0 || *ptr > numcolors; i++, ptr++);
++		if (!*ptr)
++			break;
++		c = *ptr;
++		*ptr = 0;
++		if (i) {
++			x += drw_text(drw, 0, 0, 0, 0, buf) + drw->fonts[0]->h;
++		}
++		*ptr = c;
++		buf = ++ptr;
++	}
++	return x + drw_text(drw, 0, 0, 0, 0, buf);
++}
++
++int
++drw_colored_text_and_bars_width(Drw *drw, int numcolors, char *text) {
++	char *buf = text, *ptr = buf, c = 1;
++	int i, x = 0;
++	while (*ptr) {
++		for (i = 0; *ptr != 0 && !(*ptr & (1<<7)); ++i, ++ptr);
++		if (!*ptr) {
++			break;
++		}
++		c = *ptr;
++		*ptr = 0;
++		if (i) {
++			x += drw_colored_text_width(drw, numcolors, buf);
++		}
++		*ptr = c;
++		x += *(ptr + 5) - 1;
++		ptr += 6;
++		buf = ptr;
++	}
++	return x + drw_colored_text_width(drw, numcolors, buf);
++}
++
++int
++drw_colored_text_and_bars(Drw *drw, ClrScheme *scheme, int numcolors, int x, int y, unsigned int w, unsigned int h, char *text)
++{
++	if (!drw || !drw->fontcount || !drw->scheme) {
++		return 0;
++	}
++
++	char *buf = text, *ptr = buf, c = 1, d = 1;
++	int i, filled, empty, bx, by, bw, bh, bs;
++	ClrScheme *sc;
++
++	while (*ptr) {
++		for (i = 0; *ptr != 0 && !(*ptr & (1<<7)); ++i, ++ptr);
++		if (!*ptr) {
++			break;
++		}
++		d = *ptr;
++		filled = d & (1<<6);
++		empty = !filled;
++		c = d & ((1<<6) - 1);
++		*ptr = 0;
++		if (i) {
++			x = drw_colored_text(drw, scheme, numcolors, x, y, w, h, buf) + drw->fonts[0]->h / 2;
++		}
++		*ptr = d;
++		bx = *(++ptr) - 1;
++		by = *(++ptr) - 1;
++		bw = *(++ptr) - 1;
++		bh = *(++ptr) - 1;
++		bs = *(++ptr) - 1;
++		sc = drw->scheme;
++		drw_setscheme(drw, &scheme[c-1]);
++		drw_rect(drw, x + bx, y + by, bw, bh, filled, empty);
++		drw_setscheme(drw, sc);
++		x += bs;
++		buf = ++ptr;
++	}
++	return drw_colored_text(drw, scheme, numcolors, x, y, w, h, buf) + drw->fonts[0]->h / 2;
+ }
+ 
+ void
+diff -rpu dwm-6.1.old/drw.h dwm-6.1/drw.h
+--- dwm-6.1.old/drw.h	2015-12-05 18:15:16.408606053 -0500
++++ dwm-6.1/drw.h	2015-12-05 18:15:23.855005187 -0500
+@@ -67,7 +67,10 @@ void drw_setfont(Drw *, Fnt *);
+ void drw_setscheme(Drw *, ClrScheme *);
+ 
+ /* Drawing functions */
+-void drw_colored_text(Drw *, ClrScheme *, int, int, int, unsigned int, unsigned int, char *);
++int drw_colored_text_width(Drw *, int, char *);
++int drw_colored_text_and_bars_width(Drw *, int, char *);
++int drw_colored_text(Drw *, ClrScheme *, int, int, int, unsigned int, unsigned int, char *);
++int drw_colored_text_and_bars(Drw *, ClrScheme *, int, int, int, unsigned int, unsigned int, char *);
+ void drw_rect(Drw *, int, int, unsigned int, unsigned int, int, int);
+ int drw_text(Drw *, int, int, unsigned int, unsigned int, const char *);
+ 
+diff -rpu dwm-6.1.old/dwm.c dwm-6.1/dwm.c
+--- dwm-6.1.old/dwm.c	2015-12-05 18:15:16.408606053 -0500
++++ dwm-6.1/dwm.c	2015-12-05 18:15:23.855005187 -0500
+@@ -857,7 +857,7 @@ drawbar(Monitor *m)
+ 	x += w;
+ 	xx = x;
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+-		w = TEXTW(stext);
++		w = drw_colored_text_and_bars_width(drw, NUMCOLORS, stext);
+ 		x = m->ww - w;
+ 		if (showsystray && m == systraytomon(m)) {
+ 			x -= getsystraywidth();
+@@ -866,7 +866,7 @@ drawbar(Monitor *m)
+ 			x = xx;
+ 			w = m->ww - xx;
+ 		}
+-		drw_colored_text(drw, scheme, NUMCOLORS, x, 0, w, bh, stext);
++		drw_colored_text_and_bars(drw, scheme, NUMCOLORS, x, 0, w, bh, stext);
+ 	} else
+ 		x = m->ww;
+ 	if ((w = x - xx) > bh) {

@@ -17,16 +17,18 @@ source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
         01-systray.patch
         02-pertag.patch
         03-statuscolors.patch
-        04-config-colors.patch
-        05-config-font.patch
-        06-config-keys.patch
-        07-config-tags.patch
+        04-status2dleif.patch
+        05-config-colors.patch
+        06-config-font.patch
+        07-config-keys.patch
+        08-config-tags.patch
         dwm.desktop
         dwmstart)
 md5sums=('f0b6b1093b7207f89c2a90b848c008ec'
          'b059f5abfb7ac17c18bc1d69e102c5d0'
          'c9413139eb527560fd742420f455cd7f'
          '09ded45a4d861db58d18ed2e63aa69f0'
+         '7aee93ebd51d5a148438eba73fb0ca3d'
          '58f30564eea68300a375cdbfbcc5c61f'
          '15222918fd0193435499c61dd3dc6d29'
          'bf0b6ccfe4586e5ec60eb1ff7f1e5c3b'
