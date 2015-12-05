@@ -26,7 +26,7 @@ source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
 md5sums=('f0b6b1093b7207f89c2a90b848c008ec'
          'b059f5abfb7ac17c18bc1d69e102c5d0'
          'c9413139eb527560fd742420f455cd7f'
-         'f1b9e2284b6eec3983f8467a1dd01d20'
+         '09ded45a4d861db58d18ed2e63aa69f0'
          '58f30564eea68300a375cdbfbcc5c61f'
          '15222918fd0193435499c61dd3dc6d29'
          'bf0b6ccfe4586e5ec60eb1ff7f1e5c3b'

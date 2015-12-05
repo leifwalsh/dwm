@@ -21,7 +21,7 @@ diff -pur dwm-6.1.old/drw.c dwm-6.1/drw.c
 +		c = *ptr;
 +		*ptr = 0;
 +		if (i)
-+			x = drw_text(drw, x, y, w, h, buf) + drw->fonts[0]->h;
++			x = drw_text(drw, x, y, w, h, buf) + drw->fonts[0]->h / 2;
 +		*ptr = c;
 +		drw_setscheme(drw, &scheme[c-1]);
 +		buf = ++ptr;
