@@ -9,15 +9,13 @@
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-@@ -55,7 +55,10 @@
- 
+@@ -67,7 +67,7 @@
  /* commands */
- static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
--static const char *termcmd[]  = { "uxterm", NULL };
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", colors[0][2], "-nf", colors[0][1], "-sb", colors[1][2], "-sf", colors[1][1], NULL };
+-static const char *termcmd[]  = { "st", NULL };
 +static const char *termcmd[]  = { "urxvt", NULL };
-+static const char *vol_up[]      = { "pulseaudio-ctl", "up", NULL};
-+static const char *vol_down[]    = { "pulseaudio-ctl", "down", NULL};
-+static const char *mute_toggle[] = { "pulseaudio-ctl", "mute", NULL};
  
  static Key keys[] = {
  	/* modifier                     key        function        argument */
+ 

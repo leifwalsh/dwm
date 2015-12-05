@@ -1,18 +1,18 @@
---- dwm-6.0/config.def.h.orig	2015-04-16 09:22:08.383170721 -0400
-+++ dwm-6.0/config.def.h	2015-04-16 09:26:05.647771882 -0400
-@@ -1,15 +1,18 @@
- /* See LICENSE file for copyright and license details. */
- 
- /* appearance */
--#define NUMCOLORS         4             // need at least 3
+--- dwm-6.1/config.def.h.orig	2015-12-02 21:49:34.738595548 -0500
++++ dwm-6.1/config.def.h	2015-12-02 21:50:35.177058976 -0500
+@@ -5,12 +5,20 @@ static const char *fonts[] = {
+ 	"monospace:size=10"
+ };
+ static const char dmenufont[]       = "monospace:size=10";
+-static const char normbordercolor[] = "#444444";
+-static const char normbgcolor[]     = "#222222";
+-static const char normfgcolor[]     = "#bbbbbb";
+-static const char selbordercolor[]  = "#005577";
+-static const char selbgcolor[]      = "#005577";
+-static const char selfgcolor[]      = "#eeeeee";
++
 +#define NUMCOLORS         8
- static const char colors[NUMCOLORS][ColLast][8] = {
--   // border   foreground  background
--   { "#cccccc", "#000000", "#cccccc" },  // 0 = normal
--   { "#0066ff", "#ffffff", "#0066ff" },  // 1 = selected
--   { "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
--   { "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
--   // add more here
++static const char colors[NUMCOLORS][3][8] = { // eww
 +  // border   foreground background
 +  { "#586e75", "#93a1a1", "#073642" },  // normal
 +  { "#657b83", "#eee8d5", "#002b36" },  // selected
@@ -22,7 +22,17 @@
 +  { "#586e75", "#268bd2", "#073642" },  // blue
 +  { "#586e75", "#2aa198", "#073642" },  // cyan
 +  { "#586e75", "#859900", "#073642" },  // green
- };
- static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
++};
++
  static const unsigned int borderpx  = 1;        /* border pixel of windows */
  static const unsigned int snap      = 32;       /* snap pixel */
+ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+@@ -58,7 +66,7 @@ static const Layout layouts[] = {
+ 
+ /* commands */
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
++static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", colors[0][2], "-nf", colors[0][1], "-sb", colors[1][2], "-sf", colors[1][1], NULL };
+ static const char *termcmd[]  = { "st", NULL };
+ 
+ static Key keys[] = {

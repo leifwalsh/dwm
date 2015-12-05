@@ -4,33 +4,33 @@
 # Contributor: Grigorios Bouzakis <grbzks@gmail.com>
 
 pkgname=dwm
-pkgver=6.0
-pkgrel=5
+pkgver=6.1
+pkgrel=2
 pkgdesc="A dynamic window manager for X"
 url="http://dwm.suckless.org"
 arch=('i686' 'x86_64')
 license=('MIT')
 options=(zipman)
-depends=('libx11' 'libxinerama')
+depends=('libx11' 'libxinerama' 'libxft' 'freetype2')
 install=dwm.install
 source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz
-        01-statuscolors.patch
+        01-systray.patch
         02-pertag.patch
-        03-systray.patch
+        03-statuscolors.patch
         04-config-colors.patch
         05-config-font.patch
         06-config-keys.patch
         07-config-tags.patch
         dwm.desktop
         dwmstart)
-md5sums=('8bb00d4142259beb11e13473b81c0857'
-         '76706fdeda50e0a9f8367079efee7149'
-         'd2ff4c32286bb5fec5c9bee8c7aac91b'
-         '967174d90cc7d99508f4285fedf301a8'
-         'bc65904864bcda50ce397b1962f9d66d'
-         '22dcb7b1d762837dcdef54a815323915'
-         'bcf6dd303e03c9e490b602a2fb453ffe'
-         '2380a9a7473b4c026135bd035ce5c2f3'
+md5sums=('f0b6b1093b7207f89c2a90b848c008ec'
+         'b059f5abfb7ac17c18bc1d69e102c5d0'
+         'c9413139eb527560fd742420f455cd7f'
+         'f1b9e2284b6eec3983f8467a1dd01d20'
+         '58f30564eea68300a375cdbfbcc5c61f'
+         '15222918fd0193435499c61dd3dc6d29'
+         'bf0b6ccfe4586e5ec60eb1ff7f1e5c3b'
+         '8af427ba13e14d06531ad858f335571a'
          '1fd6ee7c7d66741480aa5256849ddd6b'
          'c8e286dc3b77c76f5b088bcb66dfcd14')
 
@@ -40,13 +40,7 @@ build() {
     echo "=> $patch"
     patch -p1 < $patch
   done
-  cp $srcdir/dwmstart dwmstart
-  sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
-  sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
-  sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk
-  sed -i 's/^LDFLAGS = -g/#LDFLAGS += -g/g' config.mk
-  sed -i 's/^#LDFLAGS = -s/LDFLAGS += -s/g' config.mk
-  make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+  make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 FREETYPEINC=/usr/include/freetype2
 }
 
 package() {
@@ -54,6 +48,6 @@ package() {
   make PREFIX=/usr DESTDIR=$pkgdir install
   install -m644 -D LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
   install -m644 -D README $pkgdir/usr/share/doc/$pkgname/README
-  install -m755 -D dwmstart $pkgdir/usr/bin/dwmstart
   install -m644 -D $srcdir/dwm.desktop $pkgdir/usr/share/xsessions/dwm.desktop
+  install -m755 -D $srcdir/dwmstart $pkgdir/usr/bin/dwmstart
 }

@@ -1,6 +1,6 @@
 --- dwm-6.0/config.def.h.orig	2015-04-16 09:38:54.451857156 -0400
 +++ dwm-6.0/config.def.h	2015-04-16 09:26:05.647771882 -0400
-@@ -22,12 +22,14 @@
+@@ -22,16 +22,18 @@
  static const Bool topbar            = True;     /* False means bottom bar */
  
  /* tagging */
@@ -8,12 +8,16 @@
 +static const char *tags[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
  
  static const Rule rules[] = {
+ 	/* xprop(1):
+ 	 *	WM_CLASS(STRING) = instance, class
+ 	 *	WM_NAME(STRING) = title
+ 	 */
  	/* class      instance    title       tags mask     isfloating   monitor */
- 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
--	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
-+	{ "Firefox",  NULL,       NULL,       1 << 0,       False,       -1 },
-+	{ "Chromium", NULL,       NULL,       1 << 0,       False,       -1 },
-+	{ "Emacs",    NULL,       NULL,       1 << 1,       False,       -1 },
+ 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
++	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           -1 },
++	{ "Chromium", NULL,       NULL,       1 << 0,       0,           -1 },
++	{ "Emacs",    NULL,       NULL,       1 << 1,       0,           -1 },
  };
  
  /* layout(s) */

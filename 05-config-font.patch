@@ -1,11 +1,14 @@
---- dwm-6.0/config.def.h.orig	2015-04-16 09:34:45.943913558 -0400
-+++ dwm-6.0/config.def.h	2015-04-16 09:26:05.647771882 -0400
-@@ -13,7 +13,7 @@
-   { "#586e75", "#2aa198", "#073642" },  // cyan
-   { "#586e75", "#859900", "#073642" },  // green
+--- dwm-6.1/config.def.h.orig	2015-12-02 22:44:43.039134325 -0500
++++ dwm-6.1/config.def.h	2015-12-02 22:44:58.045431378 -0500
+@@ -2,9 +2,9 @@
+ 
+ /* appearance */
+ static const char *fonts[] = {
+-	"monospace:size=10"
++	"fixed-10:style=semicondensed"
  };
--static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-+static const char font[]            = "-*-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso8859-1";
- static const unsigned int borderpx  = 1;        /* border pixel of windows */
- static const unsigned int snap      = 32;       /* snap pixel */
- static const unsigned int systrayspacing = 2;   /* systray spacing */
+-static const char dmenufont[]       = "monospace:size=10";
++static const char dmenufont[]       = "fixed-10:style=semicondensed";
+ 
+ #define NUMCOLORS         8
+ static const char colors[NUMCOLORS][3][8] = { // eww
