@@ -122,8 +122,17 @@ diff -rpu dwm-6.1.old/drw.h dwm-6.1/drw.h
  int drw_text(Drw *, int, int, unsigned int, unsigned int, const char *);
  
 diff -rpu dwm-6.1.old/dwm.c dwm-6.1/dwm.c
---- dwm-6.1.old/dwm.c	2015-12-05 18:15:16.408606053 -0500
-+++ dwm-6.1/dwm.c	2015-12-05 18:15:23.855005187 -0500
+--- dwm-6.1.old/dwm.c	2015-12-06 14:51:44.528155982 -0500
++++ dwm-6.1/dwm.c	2015-12-06 14:52:24.198212353 -0500
+@@ -275,7 +275,7 @@ static void zoom(const Arg *arg);
+ static Systray *systray = NULL;
+ static unsigned long systrayorientation = _NET_SYSTEM_TRAY_ORIENTATION_HORZ;
+ static const char broken[] = "broken";
+-static char stext[256];
++static char stext[16<<10];
+ static int screen;
+ static int sw, sh;           /* X display screen geometry width, height */
+ static int bh, blw = 0;      /* bar geometry */
 @@ -857,7 +857,7 @@ drawbar(Monitor *m)
  	x += w;
  	xx = x;
